@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: hotel
+    database: hotel_mgmt  
+    schema: raw  
+    # quoting:
+    #   database: true
+    #   schema: false
+    #   identifier: true
+    tables:
+      - name: transactions
+      - name: products
+      - name: customers
+  

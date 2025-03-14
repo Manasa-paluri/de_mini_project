@@ -1,0 +1,39 @@
+hotel_booking:
+  outputs:
+    dev:
+      account: AMITJNS-CT72498
+      database: HOTEL_MGMT
+      password: Manasa@20242546
+      role: ACCOUNTADMIN
+      schema: stage
+      threads: 1
+      type: snowflake
+      user: MANASA26
+      warehouse: COMPUTE_WH
+  target: dev
+practice:
+  outputs:
+    dev:
+      account: AMITJNS-CT72498
+      database: SAMPLE_DB
+      password: Manasa@20242546
+      role: ACCOUNTADMIN
+      schema: RAW
+      threads: 1
+      type: snowflake
+      user: MANASA26
+      warehouse: COMPUTE_WH
+  target: dev
+retail_company:
+  outputs:
+    dev:
+      account: AMITJNS-CT72498
+      database: retail
+      password: Manasa@20242546
+      role: ACCOUNTADMIN
+      schema: mart
+      threads: 1
+      type: snowflake
+      user: MANASA26
+      warehouse: COMPUTE_WH
+  target: dev
