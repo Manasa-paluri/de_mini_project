@@ -1,53 +1,43 @@
-WITH customer_revenue AS (
+{{ config(
+    materialized='table',
+    schema='mart'
+) }}
+WITH revenue_changes AS (
     SELECT
-        customer_id,
-        SUM(CASE WHEN payment_month >= DATEADD(month, -1, CURRENT_DATE) THEN revenue ELSE 0 END) AS total_revenue_lm
+        CUSTOMER_ID,
+        PAYMENT_MONTH,
+        SUM(REVENUE) AS revenue
     FROM {{ ref('stg_transactions') }}
-    GROUP BY customer_id
+    GROUP BY CUSTOMER_ID, PAYMENT_MONTH
 ),
-churned_customer_revenue AS (
+previous_revenue AS (
     SELECT
-        customer_id,
-        SUM(churned_revenue) AS churned_revenue_lm
-    FROM (
-        SELECT
-            customer_id,
-             churned_revenue
-        FROM {{ ref('churn_cust') }}
-     
-    ) subquery
-    GROUP BY customer_id
+        CUSTOMER_ID,
+        PAYMENT_MONTH,
+        revenue,
+        LAG(revenue) OVER (PARTITION BY CUSTOMER_ID ORDER BY PAYMENT_MONTH) AS prev_revenue
+    FROM revenue_changes
 ),
-churned_product_revenue AS (
+monthly_revenue AS (
     SELECT
-        customer_id,
-        SUM(total_churn_revenue) AS churned_revenue_lm
-    FROM (
-        SELECT
-            customer_id,
-            total_churn_revenue
-        FROM {{ ref('churn_prod') }}
-        
-    ) subquery
-    GROUP BY customer_id
-),
-final_revenue AS (
-    SELECT
-        cr.customer_id,
-        cr.total_revenue_lm,
-        COALESCE(ccr.churned_revenue_lm, 0) AS churned_customer_revenue_lm,
-        COALESCE(cpr.churned_revenue_lm, 0) AS churned_product_revenue_lm,
-        cr.total_revenue_lm - COALESCE(ccr.churned_revenue_lm, 0) - COALESCE(cpr.churned_revenue_lm, 0) AS retained_revenue_lm
-    FROM customer_revenue cr
-    LEFT JOIN churned_customer_revenue ccr ON cr.customer_id = ccr.customer_id
-    LEFT JOIN churned_product_revenue cpr ON cr.customer_id = cpr.customer_id
+        PAYMENT_MONTH,
+        SUM(revenue) AS total_revenue,
+        SUM(CASE
+            WHEN revenue > prev_revenue THEN revenue - prev_revenue
+            ELSE 0
+        END) AS expansion_revenue,
+        SUM(CASE
+            WHEN revenue < prev_revenue THEN prev_revenue - revenue
+            ELSE 0
+        END) AS contraction_revenue
+    FROM previous_revenue
+    GROUP BY PAYMENT_MONTH
 )
 SELECT
-    customer_id,
-    total_revenue_lm,
-    churned_customer_revenue_lm,
-    churned_product_revenue_lm,
-    retained_revenue_lm,
-    CASE WHEN total_revenue_lm > 0 THEN (retained_revenue_lm / total_revenue_lm) * 100 ELSE NULL END AS GRR_lm
-FROM final_revenue
-ORDER BY customer_id;
+    PAYMENT_MONTH,
+    total_revenue,
+    expansion_revenue,
+    contraction_revenue,
+    (total_revenue + expansion_revenue - contraction_revenue) / total_revenue AS NRR,
+    (total_revenue - contraction_revenue) / total_revenue AS GRR
+FROM monthly_revenue
