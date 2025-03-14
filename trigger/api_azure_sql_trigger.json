@@ -1,0 +1,25 @@
+{
+	"name": "api_azure_sql_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_master_api",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2025-03-06T11:26:00",
+				"endTime": "2025-03-07T11:26:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

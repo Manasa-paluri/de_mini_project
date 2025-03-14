@@ -1,0 +1,17 @@
+{
+	"name": "source_prep_pl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "stage",
+			"table": "users"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

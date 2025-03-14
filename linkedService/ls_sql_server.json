@@ -1,0 +1,21 @@
+{
+	"name": "ls_sql_server",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "JM-DKT-030",
+			"database": "dbo_de_mp_raw",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "Windows",
+			"userName": "AzureAD\\PaluriManasa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlNjUxODQ4Zi1kNmYwLTQ1MzUtODJlNy1iZGI4MGQ5ZmE0Y2YiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "self-hosted-ir-ssms-adf",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

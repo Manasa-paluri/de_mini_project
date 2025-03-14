@@ -1,0 +1,6 @@
+{
+	"name": "self-hosted-ir-ssms-adf",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

@@ -1,0 +1,46 @@
+{
+	"name": "AzureSql_source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Prop_0",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_1",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_2",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_3",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_4",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_5",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Prop_6",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "schema",
+			"table": "table"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

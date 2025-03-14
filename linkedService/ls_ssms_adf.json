@@ -1,0 +1,21 @@
+{
+	"name": "ls_ssms_adf",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlMI",
+		"typeProperties": {
+			"server": "sample-sql-server-adf.database.windows.net",
+			"database": "raw",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "Manasa-paluri",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxOWU3NTNjNy04MmNiLTRiNDctYjRlNC0xNTI0Njk1MjRlNTAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "self-hosted-ir-ssms-adf",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

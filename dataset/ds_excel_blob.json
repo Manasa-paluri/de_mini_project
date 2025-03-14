@@ -1,0 +1,25 @@
+{
+	"name": "ds_excel_blob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_sql",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"salesss": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "schema",
+			"table": {
+				"value": "@dataset().salesss",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
