@@ -1,0 +1,16 @@
+{
+	"name": "Snowflake_table1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_snowflake_stg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "STAGING",
+			"table": "PRODUCTS"
+		}
+	}
+}
